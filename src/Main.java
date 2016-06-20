@@ -1,6 +1,11 @@
 import com.jsontocsv.parser.JsonFlattener;
 import com.jsontocsv.writer.CSVWriter;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -13,45 +18,14 @@ public class Main {
         writer.writeAsCSV(flatJson, "sample.csv");
     }
 
-    private static String jsonValue() {
-        return "[\n" +
-                "    {\n" +
-                "        \"studentName\": \"Foo\",\n" +
-                "        \"Age\": \"12\",\n" +
-                "        \"subjects\": [\n" +
-                "            {\n" +
-                "                \"name\": \"English\",\n" +
-                "                \"marks\": \"40\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"History\",\n" +
-                "                \"marks\": \"50\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"studentName\": \"Bar\",\n" +
-                "        \"Age\": \"12\",\n" +
-                "        \"subjects\": [\n" +
-                "            {\n" +
-                "                \"name\": \"English\",\n" +
-                "                \"marks\": \"40\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"History\",\n" +
-                "                \"marks\": \"50\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Science\",\n" +
-                "                \"marks\": \"40\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"studentName\": \"Baz\",\n" +
-                "        \"Age\": \"12\",\n" +
-                "        \"subjects\": []\n" +
-                "    }\n" +
-                "]";
+    static String readFile(String path, Charset encoding) throws IOException
+    {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }
+
+    private static String jsonValue() throws IOException {
+        String content = readFile("C:\\Users\\***\\Desktop\\***.json", StandardCharsets.UTF_8);
+        return content;
     }
 }
